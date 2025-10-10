@@ -1,0 +1,39 @@
+{
+	"appName": "MediMart",
+	"welcome": "مرحباً بك في MediMart",
+	"language": {
+		"ar": "العربية",
+		"en": "English"
+	},
+	"auth": {
+		"login": "تسجيل الدخول",
+		"register": "إنشاء حساب",
+		"email": "البريد الإلكتروني",
+		"password": "كلمة المرور",
+		"confirmPassword": "تأكيد كلمة المرور",
+		"fullName": "الاسم الكامل",
+		"noAccount": "ليس لديك حساب؟",
+		"haveAccount": "لديك حساب بالفعل؟",
+		"goToRegister": "إنشاء حساب جديد",
+		"goToLogin": "تسجيل الدخول",
+		"loginFailed": "بيانات الدخول غير صحيحة",
+		"registerSuccess": "تم إنشاء الحساب بنجاح"
+	},
+	"actions": {
+		"submit": "إرسال",
+		"back": "رجوع"
+	},
+	"hero": {
+		"titleBold": "صيدلية",
+		"titleAccent": "ذكية",
+		"subtitle": "منصة لإدارة الصيدلية بسهولة وكفاءة وواجهة حديثة",
+		"cta": "ابدأ الآن"
+	},
+	"validation": {
+		"required": "هذا الحقل مطلوب",
+		"email": "يرجى إدخال بريد إلكتروني صالح",
+		"passwordsMismatch": "كلمتا المرور غير متطابقتين"
+	}
+}
+
+

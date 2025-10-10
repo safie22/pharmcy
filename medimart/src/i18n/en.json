@@ -1,0 +1,39 @@
+{
+	"appName": "MediMart",
+	"welcome": "Welcome to MediMart",
+	"language": {
+		"ar": "العربية",
+		"en": "English"
+	},
+	"auth": {
+		"login": "Login",
+		"register": "Register",
+		"email": "Email",
+		"password": "Password",
+		"confirmPassword": "Confirm Password",
+		"fullName": "Full Name",
+		"noAccount": "Don't have an account?",
+		"haveAccount": "Already have an account?",
+		"goToRegister": "Create a new account",
+		"goToLogin": "Sign in",
+		"loginFailed": "Invalid login credentials",
+		"registerSuccess": "Account created successfully"
+	},
+	"actions": {
+		"submit": "Submit",
+		"back": "Back"
+	},
+	"hero": {
+		"titleBold": "Pharmacy",
+		"titleAccent": "Store",
+		"subtitle": "A smart platform to manage your pharmacy with ease",
+		"cta": "Get Started"
+	},
+	"validation": {
+		"required": "This field is required",
+		"email": "Please enter a valid email",
+		"passwordsMismatch": "Passwords do not match"
+	}
+}
+
+

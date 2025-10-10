@@ -12,12 +12,12 @@ export default function DashboardPage() {
 	}
 
 	return (
-		<div className="relative">
-			<div className="absolute top-4 right-4 z-10">
+		<div className="relative min-h-screen">
+			<div className="absolute top-2 right-2 z-10">
 				<Button 
 					onClick={handleLogout}
 					variant="ghost"
-					className="bg-white/80 backdrop-blur-sm border border-gray-200"
+					className="bg-white/80 backdrop-blur-sm border border-gray-200 text-xs"
 				>
 					تسجيل الخروج
 				</Button>

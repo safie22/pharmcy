@@ -11,20 +11,20 @@ type Props = {
 
 export default function AuthShell({ title, subtitle, children }: Props) {
 	return (
-		<section className="relative min-h-screen grid place-items-center px-3 sm:px-4 lg:px-8 py-6 sm:py-10 lg:py-16">
+		<section className="relative min-h-screen grid place-items-center px-4 py-4">
 			<DecorativeShapes />
 			<div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.08),transparent_60%)]" />
-			<div className="relative w-full max-w-sm sm:max-w-md lg:max-w-2xl xl:max-w-3xl 2xl:max-w-4xl">
-				<div className="mb-6 sm:mb-8 lg:mb-12 flex items-center justify-center">
+			<div className="relative w-full max-w-sm">
+				<div className="mb-3 flex items-center justify-center">
 					<LogoBrand />
 				</div>
-				<Card className="p-6 sm:p-8 lg:p-12 xl:p-16 shadow-2xl">
-					<div className="mb-6 sm:mb-8 lg:mb-12 text-center">
-						<h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold tracking-tight text-gray-900 leading-tight">
+				<Card className="p-4 shadow-lg">
+					<div className="mb-4 text-center">
+						<h1 className="text-xl font-semibold text-gray-900">
 							{title}
 						</h1>
 						{subtitle && (
-							<p className="mt-4 lg:mt-6 text-sm sm:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-gray-500 leading-relaxed max-w-2xl mx-auto">
+							<p className="mt-1 text-sm text-gray-500">
 								{subtitle}
 							</p>
 						)}

@@ -4,6 +4,7 @@ import PasswordInput from '../components/ui/PasswordInput'
 import Button from '../components/ui/Button'
 import Alert from '../components/ui/Alert'
 import Card from '../components/ui/Card'
+import AuthShell from '../components/AuthShell'
 import Snackbar from '../components/ui/Snackbar'
 import { Link, useNavigate } from 'react-router-dom'
 import { mockLogin } from '../utils/auth'
@@ -36,18 +37,13 @@ export default function LoginPage() {
 	}
 
 	return (
-		<div className="w-full max-w-md mx-auto p-6">
-			<div className="mb-6 text-center">
-				<h1 className="text-2xl font-bold text-gray-900">{t('auth.login')}</h1>
-				<p className="mt-1 text-sm text-gray-500">MediMart</p>
-			</div>
+		<AuthShell title={t('auth.login')} subtitle="MediMart">
 			{error && (
 				<div className="mb-4">
 					<Alert variant="error">{error}</Alert>
 				</div>
 			)}
-			<Card className="p-6 shadow-2xl">
-				<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+			<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 				<Input
 					label={t('auth.email')}
 					type="email"
@@ -70,8 +66,7 @@ export default function LoginPage() {
 				<Button type="submit" disabled={isSubmitting} className="w-full">
 					{t('auth.login')}
 				</Button>
-				</form>
-			</Card>
+			</form>
 			<p className="mt-4 text-center text-sm text-gray-600">
 				{t('auth.noAccount')}
 				<span className="mx-1">·</span>
@@ -85,7 +80,7 @@ export default function LoginPage() {
 				onClose={() => setSnackOpen(false)}
 				variant="success"
 			/>
-		</div>
+		</AuthShell>
 	)
 }
 

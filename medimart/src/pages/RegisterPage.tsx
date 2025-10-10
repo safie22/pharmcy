@@ -4,6 +4,7 @@ import PasswordInput from '../components/ui/PasswordInput'
 import Button from '../components/ui/Button'
 import Snackbar from '../components/ui/Snackbar'
 import Card from '../components/ui/Card'
+import AuthShell from '../components/AuthShell'
 import { Link, useNavigate } from 'react-router-dom'
 import { saveUser } from '../utils/auth'
 import { useState } from 'react'
@@ -32,13 +33,8 @@ export default function RegisterPage() {
 	const password = watch('password')
 
 	return (
-		<div className="w-full max-w-md mx-auto p-6">
-			<div className="mb-6 text-center">
-				<h1 className="text-2xl font-bold text-gray-900">{t('auth.register')}</h1>
-				<p className="mt-1 text-sm text-gray-500">MediMart</p>
-			</div>
-			<Card className="p-6 shadow-2xl">
-				<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+		<AuthShell title={t('auth.register')} subtitle="MediMart">
+			<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 				<Input
 					label={t('auth.fullName')}
 					placeholder="John Doe"
@@ -79,8 +75,7 @@ export default function RegisterPage() {
 				<Button type="submit" disabled={isSubmitting} className="w-full">
 					{t('auth.register')}
 				</Button>
-				</form>
-			</Card>
+			</form>
 			<p className="mt-4 text-center text-sm text-gray-600">
 				{t('auth.haveAccount')}
 				<span className="mx-1">·</span>
@@ -94,7 +89,7 @@ export default function RegisterPage() {
 				onClose={() => setSnackOpen(false)}
 				variant="success"
 			/>
-		</div>
+		</AuthShell>
 	)
 }
 

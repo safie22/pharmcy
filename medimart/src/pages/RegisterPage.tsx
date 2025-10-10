@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { saveUser } from '../utils/auth'
 import { useState, useEffect } from 'react'
 import { useI18n } from '../i18n/I18nProvider'
-import { UserIcon, MailIcon, LockIcon } from '../components/ui/Icons'
+import { UserIcon, MailIcon } from '../components/ui/Icons'
 
 type FormValues = { fullName: string; email: string; password: string; confirmPassword: string }
 

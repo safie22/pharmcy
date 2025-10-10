@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { mockLogin } from '../utils/auth'
 import { useState, useEffect } from 'react'
 import { useI18n } from '../i18n/I18nProvider'
-import { MailIcon, LockIcon } from '../components/ui/Icons'
+import { MailIcon } from '../components/ui/Icons'
 
 type FormValues = { email: string; password: string }
 
@@ -19,7 +19,6 @@ export default function LoginPage() {
 	const [error, setError] = useState<string | null>(null)
 	const [snackOpen, setSnackOpen] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
-	const [showPassword, setShowPassword] = useState(false)
 	const {
 		register,
 		handleSubmit,
@@ -74,7 +73,7 @@ export default function LoginPage() {
 			{/* رسالة الخطأ مع تأثير */}
 			{error && (
 				<div className="mb-3 animate-fade-in">
-					<Alert variant="error" className="animate-shake">
+					<Alert variant="error">
 						<div className="flex items-center gap-1">
 							<span className="text-sm">⚠️</span>
 							<span className="text-sm">{error}</span>

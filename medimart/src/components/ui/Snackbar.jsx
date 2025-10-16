@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react'
 import { clsx } from 'clsx'
 
-type Props = {
-	message: string
-	open: boolean
-	onClose?: () => void
-	variant?: 'success' | 'error' | 'info'
-}
-
-export default function Snackbar({ message, open, onClose, variant = 'info' }: Props) {
+export default function Snackbar({ message, open, onClose, variant = 'info' }) {
 	const [visible, setVisible] = useState(open)
 
 	useEffect(() => setVisible(open), [open])
@@ -44,5 +37,3 @@ export default function Snackbar({ message, open, onClose, variant = 'info' }: P
 		</div>
 	)
 }
-
-

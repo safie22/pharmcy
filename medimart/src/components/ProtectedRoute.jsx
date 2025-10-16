@@ -1,11 +1,7 @@
 import { Navigate } from 'react-router-dom'
-import { getStoredUser } from '../utils/auth'
+import { getStoredUser } from '../utils/auth.js'
 
-type Props = {
-	children: React.ReactNode
-}
-
-export default function ProtectedRoute({ children }: Props) {
+export default function ProtectedRoute({ children }) {
 	const user = getStoredUser()
 	
 	if (!user) {

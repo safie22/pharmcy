@@ -1,12 +1,6 @@
-import type { ReactNode } from 'react'
 import { clsx } from 'clsx'
 
-type Props = {
-	variant?: 'error' | 'success' | 'info'
-	children: ReactNode
-}
-
-export default function Alert({ variant = 'info', children }: Props) {
+export default function Alert({ variant = 'info', children }) {
 	return (
 		<div
 			className={clsx('rounded-lg border px-3 py-2 text-sm', {
@@ -19,5 +13,3 @@ export default function Alert({ variant = 'info', children }: Props) {
 		</div>
 	)
 }
-
-

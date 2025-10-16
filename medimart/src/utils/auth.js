@@ -1,25 +1,17 @@
-export type User = {
-	fullName: string
-	email: string
-	password: string
-}
-
 const AUTH_KEY = 'medimart:user'
 
-export function getStoredUser(): User | null {
+export function getStoredUser() {
 	const raw = localStorage.getItem(AUTH_KEY)
-	return raw ? (JSON.parse(raw) as User) : null
+	return raw ? JSON.parse(raw) : null
 }
 
-export function saveUser(user: User) {
+export function saveUser(user) {
 	localStorage.setItem(AUTH_KEY, JSON.stringify(user))
 }
 
-export function mockLogin(email: string, password: string): boolean {
+export function mockLogin(email, password) {
 	// Built-in mock credentials
 	if (email === 'test@test.com' && password === '123456') return true
 	const user = getStoredUser()
 	return !!user && user.email === email && user.password === password
 }
-
-

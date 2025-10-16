@@ -1,15 +1,8 @@
 import DecorativeShapes from './DecorativeShapes'
 import Card from './ui/Card'
 import LogoBrand from './LogoBrand'
-import type { ReactNode } from 'react'
 
-type Props = {
-	title: string
-	subtitle?: string
-	children: ReactNode
-}
-
-export default function AuthShell({ title, subtitle, children }: Props) {
+export default function AuthShell({ title, subtitle, children }) {
 	return (
 		<section className="relative min-h-screen grid place-items-center px-4 py-4">
 			<DecorativeShapes />
@@ -35,5 +28,3 @@ export default function AuthShell({ title, subtitle, children }: Props) {
 		</section>
 	)
 }
-
-

@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import Input from './Input'
 
-type Props = React.ComponentProps<typeof Input>
-
-export default function PasswordInput(props: Props) {
+export default function PasswordInput(props) {
 	const [visible, setVisible] = useState(false)
 	return (
 		<div className="relative">
@@ -23,5 +21,3 @@ export default function PasswordInput(props: Props) {
 		</div>
 	)
 }
-
-

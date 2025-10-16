@@ -1,4 +1,4 @@
-export function MailIcon({ className = "h-4 w-4" }: { className?: string }) {
+export function MailIcon({ className = "h-4 w-4" }) {
 	return (
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
 			<path d="M4 6h16v12H4z" />
@@ -7,7 +7,7 @@ export function MailIcon({ className = "h-4 w-4" }: { className?: string }) {
 	)
 }
 
-export function UserIcon({ className = "h-4 w-4" }: { className?: string }) {
+export function UserIcon({ className = "h-4 w-4" }) {
 	return (
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
 			<path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" />
@@ -16,7 +16,7 @@ export function UserIcon({ className = "h-4 w-4" }: { className?: string }) {
 	)
 }
 
-export function LockIcon({ className = "h-4 w-4" }: { className?: string }) {
+export function LockIcon({ className = "h-4 w-4" }) {
 	return (
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
 			<rect x="4" y="11" width="16" height="9" rx="2"/>
@@ -25,7 +25,7 @@ export function LockIcon({ className = "h-4 w-4" }: { className?: string }) {
 	)
 }
 
-export function GlobeIcon({ className = "h-4 w-4" }: { className?: string }) {
+export function GlobeIcon({ className = "h-4 w-4" }) {
 	return (
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className}>
 			<circle cx="12" cy="12" r="9" />
@@ -34,5 +34,3 @@ export function GlobeIcon({ className = "h-4 w-4" }: { className?: string }) {
 		</svg>
 	)
 }
-
-

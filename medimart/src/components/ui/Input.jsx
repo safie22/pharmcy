@@ -1,14 +1,7 @@
 import { forwardRef } from 'react'
-import type { InputHTMLAttributes, ReactNode } from 'react'
 import { clsx } from 'clsx'
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
-	label?: string
-	error?: string
-	startIcon?: ReactNode
-}
-
-const Input = forwardRef<HTMLInputElement, Props>(function Input(
+const Input = forwardRef(function Input(
 	{ className, label, error, startIcon, ...props },
 	ref
 ) {
@@ -40,5 +33,3 @@ const Input = forwardRef<HTMLInputElement, Props>(function Input(
 })
 
 export default Input
-
-

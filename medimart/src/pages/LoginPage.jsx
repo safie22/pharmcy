@@ -6,17 +6,15 @@ import Alert from '../components/ui/Alert'
 import AuthShell from '../components/AuthShell'
 import Snackbar from '../components/ui/Snackbar'
 import { useNavigate } from 'react-router-dom'
-import { mockLogin } from '../utils/auth'
+import { mockLogin } from '../utils/auth.js'
 import { useState, useEffect } from 'react'
 import { useI18n } from '../i18n/I18nProvider'
 import { MailIcon } from '../components/ui/Icons'
 
-type FormValues = { email: string; password: string }
-
 export default function LoginPage() {
 	const { t } = useI18n()
 	const navigate = useNavigate()
-	const [error, setError] = useState<string | null>(null)
+	const [error, setError] = useState(null)
 	const [snackOpen, setSnackOpen] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const {
@@ -24,12 +22,12 @@ export default function LoginPage() {
 		handleSubmit,
 		formState: { errors, isSubmitting },
 		watch,
-	} = useForm<FormValues>({ mode: 'onBlur' })
+	} = useForm({ mode: 'onBlur' })
 
 	const email = watch('email')
 	const password = watch('password')
 
-	const onSubmit = async (data: FormValues) => {
+	const onSubmit = async (data) => {
 		setError(null)
 		setIsLoading(true)
 		
@@ -176,5 +174,3 @@ export default function LoginPage() {
 		</AuthShell>
 	)
 }
-
-

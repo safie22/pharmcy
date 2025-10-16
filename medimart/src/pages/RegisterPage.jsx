@@ -5,12 +5,10 @@ import Button from '../components/ui/Button'
 import Snackbar from '../components/ui/Snackbar'
 import AuthShell from '../components/AuthShell'
 import { useNavigate } from 'react-router-dom'
-import { saveUser } from '../utils/auth'
+import { saveUser } from '../utils/auth.js'
 import { useState, useEffect } from 'react'
 import { useI18n } from '../i18n/I18nProvider'
 import { UserIcon, MailIcon } from '../components/ui/Icons'
-
-type FormValues = { fullName: string; email: string; password: string; confirmPassword: string }
 
 export default function RegisterPage() {
 	const { t } = useI18n()
@@ -23,9 +21,9 @@ export default function RegisterPage() {
 		handleSubmit,
 		watch,
 		formState: { errors, isSubmitting },
-	} = useForm<FormValues>({ mode: 'onBlur' })
+	} = useForm({ mode: 'onBlur' })
 
-	const onSubmit = async (data: FormValues) => {
+	const onSubmit = async (data) => {
 		setIsLoading(true)
 		
 		// محاكاة تأخير الشبكة
@@ -141,7 +139,7 @@ export default function RegisterPage() {
 						placeholder="••••••"
 						{...register('confirmPassword', {
 							required: t('validation.required'),
-							validate: (v) => v === password || (t('validation.passwordsMismatch') as string),
+							validate: (v) => v === password || t('validation.passwordsMismatch'),
 						})}
 						error={errors.confirmPassword?.message}
 					/>
@@ -221,5 +219,3 @@ export default function RegisterPage() {
 		</AuthShell>
 	)
 }
-
-

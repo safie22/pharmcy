@@ -1,6 +1,6 @@
-import DecorativeShapes from './DecorativeShapes'
-import Card from './ui/Card'
-import LogoBrand from './LogoBrand'
+import DecorativeShapes from './DecorativeShapes.jsx'
+import Card from './ui/Card.jsx'
+import LogoBrand from './LogoBrand.jsx'
 
 export default function AuthShell({ title, subtitle, children }) {
 	return (

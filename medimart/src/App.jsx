@@ -1,34 +1,19 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
-import { I18nProvider } from './i18n/I18nProvider'
-import LoginPage from './pages/LoginPage'
-import RegisterPage from './pages/RegisterPage'
-import DashboardPage from './pages/DashboardPage'
-import { LanguageToggle } from './components/LanguageToggle'
-import LogoBrand from './components/LogoBrand'
-import ProtectedRoute from './components/ProtectedRoute'
+import React from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import LoginPage from './pages/LoginPage.jsx'
+import RegisterPage from './pages/RegisterPage.jsx'
+import DashboardPage from './pages/DashboardPage.jsx'
 
 export default function App() {
 	return (
-		<I18nProvider>
-			<div className="min-h-screen flex items-center justify-center relative">
-				<header className="absolute top-4 inset-x-0 px-6 flex items-center justify-between">
-					<LogoBrand />
-					<div className="">
-					<LanguageToggle />
-					</div>
-				</header>
-				<Routes>
-					<Route path="/" element={<Navigate to="/login" replace />} />
-					<Route path="/login" element={<LoginPage />} />
-					<Route path="/register" element={<RegisterPage />} />
-					<Route path="/dashboard" element={
-						<ProtectedRoute>
-							<DashboardPage />
-						</ProtectedRoute>
-					} />
-					<Route path="*" element={<Navigate to="/login" replace />} />
-				</Routes>
-			</div>
-		</I18nProvider>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Navigate to="/login" replace />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="/register" element={<RegisterPage />} />
+				<Route path="/dashboard" element={<DashboardPage />} />
+				<Route path="*" element={<Navigate to="/login" replace />} />
+			</Routes>
+		</BrowserRouter>
 	)
 }

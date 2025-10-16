@@ -1,221 +1,180 @@
-import { useForm } from 'react-hook-form'
-import Input from '../components/ui/Input'
-import PasswordInput from '../components/ui/PasswordInput'
-import Button from '../components/ui/Button'
-import Snackbar from '../components/ui/Snackbar'
-import AuthShell from '../components/AuthShell'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { saveUser } from '../utils/auth.js'
-import { useState, useEffect } from 'react'
-import { useI18n } from '../i18n/I18nProvider'
-import { UserIcon, MailIcon } from '../components/ui/Icons'
 
 export default function RegisterPage() {
-	const { t } = useI18n()
 	const navigate = useNavigate()
-	const [snackOpen, setSnackOpen] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)
-	const [passwordStrength, setPasswordStrength] = useState(0)
-	const {
-		register,
-		handleSubmit,
-		watch,
-		formState: { errors, isSubmitting },
-	} = useForm({ mode: 'onBlur' })
+	const [formData, setFormData] = useState({
+		fullName: '',
+		email: '',
+		password: '',
+		confirmPassword: ''
+	})
+	const [error, setError] = useState('')
 
-	const onSubmit = async (data) => {
-		setIsLoading(true)
-		
-		// محاكاة تأخير الشبكة
-		await new Promise(resolve => setTimeout(resolve, 1500))
-		
-		saveUser({ fullName: data.fullName, email: data.email, password: data.password })
-		setSnackOpen(true)
-		setTimeout(() => {
-			navigate('/login')
-			setIsLoading(false)
-		}, 2000)
+	const handleChange = (e) => {
+		setFormData({
+			...formData,
+			[e.target.name]: e.target.value
+		})
 	}
 
-	const password = watch('password')
-	const confirmPassword = watch('confirmPassword')
-
-	// حساب قوة كلمة المرور
-	useEffect(() => {
-		if (password) {
-			let strength = 0
-			if (password.length >= 6) strength += 25
-			if (password.length >= 8) strength += 25
-			if (/[A-Z]/.test(password)) strength += 25
-			if (/[0-9]/.test(password)) strength += 25
-			setPasswordStrength(strength)
-		} else {
-			setPasswordStrength(0)
+	const handleRegister = (e) => {
+		e.preventDefault()
+		
+		if (formData.password !== formData.confirmPassword) {
+			setError('كلمات المرور غير متطابقة')
+			return
 		}
-	}, [password])
+
+		if (formData.password.length < 6) {
+			setError('كلمة المرور يجب أن تكون 6 أحرف على الأقل')
+			return
+		}
+
+		// حفظ البيانات
+		localStorage.setItem('medimart:user', JSON.stringify(formData))
+		
+		// توجيه لصفحة تسجيل الدخول
+		navigate('/login')
+	}
 
 	return (
-		<AuthShell title={t('auth.register')} subtitle="انضم إلى MediMart اليوم">
-			{/* زر العودة */}
-			<div className="mb-2 text-center">
-				<button
-					onClick={() => navigate('/')}
-					className="group inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 transition-all duration-200"
-				>
-					<span className="group-hover:-translate-x-1 transition-transform">←</span>
-					<span>العودة</span>
-				</button>
+		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 relative overflow-hidden">
+			{/* Decorative Background Shapes */}
+			<div className="absolute inset-0 overflow-hidden">
+				<div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-100 rounded-full opacity-30"></div>
+				<div className="absolute -bottom-20 -left-20 w-40 h-40 bg-cyan-100 rounded-full opacity-30"></div>
+				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full opacity-20"></div>
 			</div>
 
-			{/* نموذج التسجيل */}
-			<form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-				{/* حقل الاسم الكامل */}
-				<div>
-					<Input
-						label={t('auth.fullName')}
-						placeholder="أحمد محمد علي"
-						startIcon={<UserIcon className="text-green-500 h-4 w-4" />}
-						{...register('fullName', { 
-							required: t('validation.required'),
-							minLength: { value: 2, message: 'الاسم يجب أن يكون على الأقل حرفين' }
-						})}
-						error={errors.fullName?.message}
-					/>
+			{/* Header */}
+			<header className="relative z-10 p-4">
+				<div className="max-w-6xl mx-auto flex justify-between items-center">
+					<div className="flex items-center space-x-2">
+						<div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+							<span className="text-white font-bold text-sm">M</span>
+						</div>
+						<span className="text-xl font-bold text-gray-800">MediMart</span>
+					</div>
+					<div className="flex space-x-3">
+						<button 
+							onClick={() => navigate('/register')}
+							className="px-4 py-1.5 border-2 border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-all font-semibold text-sm"
+						>
+							إنشاء حساب
+						</button>
+						<button 
+							onClick={() => navigate('/login')}
+							className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all font-semibold text-sm shadow-lg"
+						>
+							تسجيل الدخول
+						</button>
+					</div>
 				</div>
+			</header>
 
-				{/* حقل البريد الإلكتروني */}
-				<div>
-					<Input
-						label={t('auth.email')}
-						type="email"
-						placeholder="ahmed@example.com"
-						startIcon={<MailIcon className="text-blue-500 h-4 w-4" />}
-						{...register('email', {
-							required: t('validation.required'),
-							pattern: { value: /[^\s@]+@[^\s@]+\.[^\s@]+/, message: t('validation.email') },
-						})}
-						error={errors.email?.message}
-					/>
-				</div>
-
-				{/* حقل كلمة المرور مع مؤشر القوة */}
-				<div className="space-y-1">
-					<PasswordInput
-						label={t('auth.password')}
-						placeholder="••••••"
-						{...register('password', { 
-							required: t('validation.required'), 
-							minLength: { value: 6, message: 'كلمة المرور يجب أن تكون 6 أحرف على الأقل' }
-						})}
-						error={errors.password?.message}
-					/>
-					
-					{/* مؤشر قوة كلمة المرور */}
-					{password && (
-						<div className="flex items-center gap-1">
-							<div className="flex-1 bg-gray-200 rounded-full h-1">
-								<div 
-									className={`h-1 rounded-full transition-all duration-500 ${
-										passwordStrength < 25 ? 'bg-red-500' :
-										passwordStrength < 50 ? 'bg-yellow-500' :
-										passwordStrength < 75 ? 'bg-blue-500' : 'bg-green-500'
-									}`}
-									style={{ width: `${passwordStrength}%` }}
-								></div>
+			{/* Main Content */}
+			<div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
+				<div className="w-full max-w-sm">
+					{/* Register Card */}
+					<div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/20">
+						<div className="text-center mb-6">
+							<div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+								<span className="text-xl">👤</span>
 							</div>
-							<span className="text-xs text-gray-600">
-								{passwordStrength < 25 ? 'ضعيف' :
-								 passwordStrength < 50 ? 'متوسط' :
-								 passwordStrength < 75 ? 'جيد' : 'قوي'}
-							</span>
+							<h1 className="text-2xl font-bold text-gray-800 mb-1">إنشاء حساب</h1>
+							<p className="text-gray-600 text-sm">انضم إلى MediMart اليوم</p>
 						</div>
-					)}
-				</div>
 
-				{/* حقل تأكيد كلمة المرور */}
-				<div className="space-y-1">
-					<PasswordInput
-						label={t('auth.confirmPassword')}
-						placeholder="••••••"
-						{...register('confirmPassword', {
-							required: t('validation.required'),
-							validate: (v) => v === password || t('validation.passwordsMismatch'),
-						})}
-						error={errors.confirmPassword?.message}
-					/>
-					
-					{/* مؤشر تطابق كلمة المرور */}
-					{confirmPassword && (
-						<div className="flex items-center gap-1 text-xs">
-							{password === confirmPassword ? (
-								<>
-									<span className="text-green-600">✅</span>
-									<span className="text-green-600">كلمات المرور متطابقة</span>
-								</>
-							) : (
-								<>
-									<span className="text-red-600">❌</span>
-									<span className="text-red-600">كلمات المرور غير متطابقة</span>
-								</>
+						<form onSubmit={handleRegister} className="space-y-4">
+							<div>
+								<label className="block text-sm font-semibold text-gray-700 mb-1">
+									الاسم الكامل
+								</label>
+								<input
+									type="text"
+									name="fullName"
+									value={formData.fullName}
+									onChange={handleChange}
+									className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all bg-white text-sm"
+									placeholder="أحمد محمد علي"
+									required
+								/>
+							</div>
+
+							<div>
+								<label className="block text-sm font-semibold text-gray-700 mb-1">
+									البريد الإلكتروني
+								</label>
+								<input
+									type="email"
+									name="email"
+									value={formData.email}
+									onChange={handleChange}
+									className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all bg-white text-sm"
+									placeholder="ahmed@example.com"
+									required
+								/>
+							</div>
+
+							<div>
+								<label className="block text-sm font-semibold text-gray-700 mb-1">
+									كلمة المرور
+								</label>
+								<input
+									type="password"
+									name="password"
+									value={formData.password}
+									onChange={handleChange}
+									className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all bg-white text-sm"
+									placeholder="••••••"
+									required
+								/>
+							</div>
+
+							<div>
+								<label className="block text-sm font-semibold text-gray-700 mb-1">
+									تأكيد كلمة المرور
+								</label>
+								<input
+									type="password"
+									name="confirmPassword"
+									value={formData.confirmPassword}
+									onChange={handleChange}
+									className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all bg-white text-sm"
+									placeholder="••••••"
+									required
+								/>
+							</div>
+
+							{error && (
+								<div className="text-red-600 text-sm bg-red-50 p-2 rounded-lg border border-red-200">
+									{error}
+								</div>
 							)}
-						</div>
-					)}
-				</div>
 
-				{/* زر التسجيل */}
-				<Button 
-					type="submit" 
-					disabled={isSubmitting || isLoading} 
-					className="w-full"
-				>
-					{isLoading ? (
-						<div className="flex items-center justify-center gap-1">
-							<div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-							<span className="text-xs">جاري إنشاء الحساب...</span>
-						</div>
-					) : (
-						<div className="flex items-center justify-center gap-1">
-							<span>🚀</span>
-							<span>{t('auth.register')}</span>
-							<span className="group-hover:translate-x-1 transition-transform">→</span>
-						</div>
-					)}
-				</Button>
-			</form>
+							<button
+								type="submit"
+								className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-2.5 px-4 rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.01] text-sm"
+							>
+								إنشاء حساب
+							</button>
+						</form>
 
-			{/* قسم تسجيل الدخول */}
-			<div className="mt-3 text-center space-y-2">
-				<div className="relative">
-					<div className="absolute inset-0 flex items-center">
-						<div className="w-full border-t border-gray-200"></div>
-					</div>
-					<div className="relative flex justify-center text-xs">
-						<span className="px-2 bg-white text-gray-500">أو</span>
+						<div className="mt-6 text-center">
+							<p className="text-gray-600 text-sm">
+								لديك حساب بالفعل؟{' '}
+								<button
+									onClick={() => navigate('/login')}
+									className="text-blue-500 hover:text-blue-600 font-semibold hover:underline transition"
+								>
+									تسجيل الدخول
+								</button>
+							</p>
+						</div>
 					</div>
 				</div>
-				
-				<p className="text-xs text-gray-600">
-					{t('auth.haveAccount')}
-				</p>
-				<button
-					onClick={() => navigate('/login')}
-					className="group w-full py-1.5 px-2 bg-gradient-to-r from-green-50 to-emerald-50 text-green-600 hover:from-green-100 hover:to-emerald-100 rounded font-medium transition-all duration-200 hover:scale-[1.01] border border-green-200 hover:border-green-300"
-				>
-					<div className="flex items-center justify-center gap-1">
-						<span>🔐</span>
-						<span className="text-xs">{t('auth.goToLogin')}</span>
-						<span className="group-hover:translate-x-1 transition-transform">→</span>
-					</div>
-				</button>
 			</div>
-
-			{/* إشعار النجاح */}
-			<Snackbar
-				message="🎉 تم إنشاء الحساب بنجاح! جاري التوجيه..."
-				open={snackOpen}
-				onClose={() => setSnackOpen(false)}
-				variant="success"
-			/>
-		</AuthShell>
+		</div>
 	)
 }

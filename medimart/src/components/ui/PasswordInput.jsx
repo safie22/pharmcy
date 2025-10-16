@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Input from './Input'
+import Input from './Input.jsx'
 
 export default function PasswordInput(props) {
 	const [visible, setVisible] = useState(false)

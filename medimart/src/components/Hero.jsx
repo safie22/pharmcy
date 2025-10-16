@@ -1,6 +1,6 @@
-import { useI18n } from '../i18n/I18nProvider'
-import Button from './ui/Button'
-import DecorativeShapes from './DecorativeShapes'
+import { useI18n } from '../i18n/I18nProvider.jsx'
+import Button from './ui/Button.jsx'
+import DecorativeShapes from './DecorativeShapes.jsx'
 import { Link } from 'react-router-dom'
 
 export default function Hero() {

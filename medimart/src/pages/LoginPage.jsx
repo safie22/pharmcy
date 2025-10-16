@@ -1,176 +1,136 @@
-import { useForm } from 'react-hook-form'
-import Input from '../components/ui/Input'
-import PasswordInput from '../components/ui/PasswordInput'
-import Button from '../components/ui/Button'
-import Alert from '../components/ui/Alert'
-import AuthShell from '../components/AuthShell'
-import Snackbar from '../components/ui/Snackbar'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { mockLogin } from '../utils/auth.js'
-import { useState, useEffect } from 'react'
-import { useI18n } from '../i18n/I18nProvider'
-import { MailIcon } from '../components/ui/Icons'
 
 export default function LoginPage() {
-	const { t } = useI18n()
 	const navigate = useNavigate()
-	const [error, setError] = useState(null)
-	const [snackOpen, setSnackOpen] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)
-	const {
-		register,
-		handleSubmit,
-		formState: { errors, isSubmitting },
-		watch,
-	} = useForm({ mode: 'onBlur' })
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
+	const [error, setError] = useState('')
 
-	const email = watch('email')
-	const password = watch('password')
-
-	const onSubmit = async (data) => {
-		setError(null)
-		setIsLoading(true)
+	const handleLogin = (e) => {
+		e.preventDefault()
 		
-		// محاكاة تأخير الشبكة
-		await new Promise(resolve => setTimeout(resolve, 1000))
-		
-		const ok = mockLogin(data.email, data.password)
-		if (!ok) {
-			setError(t('auth.loginFailed'))
-			setIsLoading(false)
-			return
-		}
-		
-		setSnackOpen(true)
-		setTimeout(() => {
+		if (email === 'test@test.com' && password === '123456') {
+			localStorage.setItem('medimart:user', JSON.stringify({ email, password }))
 			navigate('/dashboard')
-			setIsLoading(false)
-		}, 1500)
+		} else {
+			setError('البريد الإلكتروني أو كلمة المرور غير صحيحة')
+		}
 	}
 
-	// تأثير الكتابة في الحقول
-	useEffect(() => {
-		if (email && password) {
-			setError(null)
-		}
-	}, [email, password])
-
 	return (
-		<AuthShell title={t('auth.login')} subtitle="مرحباً بك في MediMart">
-			{/* زر العودة */}
-			<div className="mb-2 text-center">
-				<button
-					onClick={() => navigate('/')}
-					className="group inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 transition-all duration-200"
-				>
-					<span className="group-hover:-translate-x-1 transition-transform">←</span>
-					<span>العودة</span>
-				</button>
+		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 relative overflow-hidden">
+			{/* Decorative Background Shapes */}
+			<div className="absolute inset-0 overflow-hidden">
+				<div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-100 rounded-full opacity-30"></div>
+				<div className="absolute -bottom-20 -left-20 w-40 h-40 bg-cyan-100 rounded-full opacity-30"></div>
+				<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-full opacity-20"></div>
 			</div>
 
-			{/* رسالة الخطأ مع تأثير */}
-			{error && (
-				<div className="mb-3 animate-fade-in">
-					<Alert variant="error">
-						<div className="flex items-center gap-1">
-							<span className="text-sm">⚠️</span>
-							<span className="text-sm">{error}</span>
+			{/* Header */}
+			<header className="relative z-10 p-4">
+				<div className="max-w-6xl mx-auto flex justify-between items-center">
+					<div className="flex items-center space-x-2">
+						<div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+							<span className="text-white font-bold text-sm">M</span>
 						</div>
-					</Alert>
-				</div>
-			)}
-
-			{/* نموذج تسجيل الدخول */}
-			<form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-				{/* حقل البريد الإلكتروني */}
-				<div>
-					<Input
-						label={t('auth.email')}
-						type="email"
-						placeholder="test@test.com"
-						startIcon={<MailIcon className="text-blue-500 h-4 w-4" />}
-						{...register('email', {
-							required: t('validation.required'),
-							pattern: { value: /[^\s@]+@[^\s@]+\.[^\s@]+/, message: t('validation.email') },
-						})}
-						error={errors.email?.message}
-					/>
-				</div>
-
-				{/* حقل كلمة المرور */}
-				<div>
-					<PasswordInput
-						label={t('auth.password')}
-						placeholder="••••••"
-						{...register('password', { required: t('validation.required') })}
-						error={errors.password?.message}
-					/>
-				</div>
-
-				{/* زر تسجيل الدخول */}
-				<Button 
-					type="submit" 
-					disabled={isSubmitting || isLoading} 
-					className="w-full"
-				>
-					{isLoading ? (
-						<div className="flex items-center justify-center gap-1">
-							<div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-							<span className="text-xs">جاري تسجيل الدخول...</span>
-						</div>
-					) : (
-						<div className="flex items-center justify-center gap-1">
-							<span>{t('auth.login')}</span>
-							<span className="group-hover:translate-x-1 transition-transform">→</span>
-						</div>
-					)}
-				</Button>
-			</form>
-
-			{/* قسم التسجيل */}
-			<div className="mt-3 text-center space-y-2">
-				<div className="relative">
-					<div className="absolute inset-0 flex items-center">
-						<div className="w-full border-t border-gray-200"></div>
+						<span className="text-xl font-bold text-gray-800">MediMart</span>
 					</div>
-					<div className="relative flex justify-center text-xs">
-						<span className="px-2 bg-white text-gray-500">أو</span>
+					<div className="flex space-x-3">
+						<button 
+							onClick={() => navigate('/register')}
+							className="px-4 py-1.5 border-2 border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white transition-all font-semibold text-sm"
+						>
+							إنشاء حساب
+						</button>
+						<button 
+							onClick={() => navigate('/login')}
+							className="px-4 py-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all font-semibold text-sm shadow-lg"
+						>
+							تسجيل الدخول
+						</button>
 					</div>
 				</div>
-				
-				<p className="text-xs text-gray-600">
-					{t('auth.noAccount')}
-				</p>
-				<button
-					onClick={() => navigate('/register')}
-					className="group w-full py-1.5 px-2 bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-600 hover:from-blue-100 hover:to-indigo-100 rounded font-medium transition-all duration-200 hover:scale-[1.01] border border-blue-200 hover:border-blue-300"
-				>
-					<div className="flex items-center justify-center gap-1">
-						<span className="text-xs">✨</span>
-						<span className="text-xs">{t('auth.goToRegister')}</span>
-						<span className="group-hover:translate-x-1 transition-transform">→</span>
+			</header>
+
+			{/* Main Content */}
+			<div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-80px)] p-4">
+				<div className="w-full max-w-sm">
+					{/* Login Card */}
+					<div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/20">
+						<div className="text-center mb-6">
+							<div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg">
+								<span className="text-xl">💊</span>
+							</div>
+							<h1 className="text-2xl font-bold text-gray-800 mb-1">تسجيل الدخول</h1>
+							<p className="text-gray-600 text-sm">مرحباً بك في MediMart</p>
+						</div>
+
+						<form onSubmit={handleLogin} className="space-y-4">
+							<div>
+								<label className="block text-sm font-semibold text-gray-700 mb-1">
+									البريد الإلكتروني
+								</label>
+								<input
+									type="email"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all bg-white text-sm"
+									placeholder="test@test.com"
+									required
+								/>
+							</div>
+
+							<div>
+								<label className="block text-sm font-semibold text-gray-700 mb-1">
+									كلمة المرور
+								</label>
+								<input
+									type="password"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									className="w-full px-3 py-2.5 border-2 border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all bg-white text-sm"
+									placeholder="123456"
+									required
+								/>
+							</div>
+
+							{error && (
+								<div className="text-red-600 text-sm bg-red-50 p-2 rounded-lg border border-red-200">
+									{error}
+								</div>
+							)}
+
+							<button
+								type="submit"
+								className="w-full bg-gradient-to-r from-blue-500 to-cyan-500 text-white py-2.5 px-4 rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:scale-[1.01] text-sm"
+							>
+								تسجيل الدخول
+							</button>
+						</form>
+
+						<div className="mt-6 text-center">
+							<p className="text-gray-600 text-sm">
+								ليس لديك حساب؟{' '}
+								<button
+									onClick={() => navigate('/register')}
+									className="text-blue-500 hover:text-blue-600 font-semibold hover:underline transition"
+								>
+									إنشاء حساب
+								</button>
+							</p>
+						</div>
+
+						<div className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
+							<p className="text-blue-700 font-semibold text-xs mb-1">🔑 بيانات تجريبية:</p>
+							<div className="text-blue-600 text-xs space-y-0.5">
+								<p><span className="font-medium">البريد:</span> test@test.com</p>
+								<p><span className="font-medium">كلمة المرور:</span> 123456</p>
+							</div>
+						</div>
 					</div>
-				</button>
+				</div>
 			</div>
-
-			{/* معلومات تسجيل الدخول التجريبي */}
-			<div className="mt-3 p-2 bg-blue-50 rounded border border-blue-200">
-				<div className="text-center">
-					<p className="text-xs text-blue-700 font-medium mb-1">🔑 بيانات تجريبية</p>
-					<div className="text-xs text-blue-600 space-y-0.5">
-						<p><strong>البريد:</strong> test@test.com</p>
-						<p><strong>كلمة المرور:</strong> 123456</p>
-					</div>
-				</div>
-			</div>
-
-			{/* إشعار النجاح */}
-			<Snackbar
-				message="🎉 تم تسجيل الدخول بنجاح!"
-				open={snackOpen}
-				onClose={() => setSnackOpen(false)}
-				variant="success"
-			/>
-		</AuthShell>
+		</div>
 	)
 }

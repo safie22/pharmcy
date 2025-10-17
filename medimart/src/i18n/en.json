@@ -1,39 +1,51 @@
 {
-	"appName": "MediMart",
-	"welcome": "Welcome to MediMart",
-	"language": {
-		"ar": "العربية",
-		"en": "English"
-	},
-	"auth": {
-		"login": "Login",
-		"register": "Register",
-		"email": "Email",
-		"password": "Password",
-		"confirmPassword": "Confirm Password",
-		"fullName": "Full Name",
-		"noAccount": "Don't have an account?",
-		"haveAccount": "Already have an account?",
-		"goToRegister": "Create a new account",
-		"goToLogin": "Sign in",
-		"loginFailed": "Invalid login credentials",
-		"registerSuccess": "Account created successfully"
-	},
-	"actions": {
-		"submit": "Submit",
-		"back": "Back"
-	},
-	"hero": {
-		"titleBold": "Pharmacy",
-		"titleAccent": "Store",
-		"subtitle": "A smart platform to manage your pharmacy with ease",
-		"cta": "Get Started"
-	},
-	"validation": {
-		"required": "This field is required",
-		"email": "Please enter a valid email",
-		"passwordsMismatch": "Passwords do not match"
-	}
+  "auth": {
+    "login": "Sign in",
+    "register": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full name",
+    "confirmPassword": "Confirm password",
+    "role": "User role",
+    "roles": {
+      "customer": "Customer",
+      "doctor": "Doctor",
+      "storeManager": "Store Manager",
+      "admin": "Admin"
+    },
+    "loginFailed": "Email or password is incorrect",
+    "haveAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "goToLogin": "Sign in",
+    "goToRegister": "Create account"
+  },
+  "hero": {
+    "titleBold": "Welcome to MediMart",
+    "titleAccent": "A digital pharmacy platform",
+    "subtitle": "Manage medicines, sales, and customers with ease",
+    "cta": "Get started"
+  },
+  "dashboard": {
+    "welcome": "Welcome to MediMart",
+    "loggedAs": "Logged in as",
+    "logout": "Logout",
+    "cards": {
+      "inventory": "Inventory",
+      "sales": "Sales",
+      "customers": "Customers",
+      "prescriptions": "Prescriptions",
+      "reports": "Reports",
+      "settings": "Settings"
+    }
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Invalid email address",
+    "passwordsMismatch": "Passwords do not match"
+  },
+  "lang": {
+    "arabic": "العربية",
+    "english": "English"
+  }
 }
-
 

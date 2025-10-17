@@ -1,39 +1,51 @@
 {
-	"appName": "MediMart",
-	"welcome": "مرحباً بك في MediMart",
-	"language": {
-		"ar": "العربية",
-		"en": "English"
-	},
-	"auth": {
-		"login": "تسجيل الدخول",
-		"register": "إنشاء حساب",
-		"email": "البريد الإلكتروني",
-		"password": "كلمة المرور",
-		"confirmPassword": "تأكيد كلمة المرور",
-		"fullName": "الاسم الكامل",
-		"noAccount": "ليس لديك حساب؟",
-		"haveAccount": "لديك حساب بالفعل؟",
-		"goToRegister": "إنشاء حساب جديد",
-		"goToLogin": "تسجيل الدخول",
-		"loginFailed": "بيانات الدخول غير صحيحة",
-		"registerSuccess": "تم إنشاء الحساب بنجاح"
-	},
-	"actions": {
-		"submit": "إرسال",
-		"back": "رجوع"
-	},
-	"hero": {
-		"titleBold": "صيدلية",
-		"titleAccent": "ذكية",
-		"subtitle": "منصة لإدارة الصيدلية بسهولة وكفاءة وواجهة حديثة",
-		"cta": "ابدأ الآن"
-	},
-	"validation": {
-		"required": "هذا الحقل مطلوب",
-		"email": "يرجى إدخال بريد إلكتروني صالح",
-		"passwordsMismatch": "كلمتا المرور غير متطابقتين"
-	}
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "fullName": "الاسم الكامل",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "role": "نوع المستخدم",
+    "roles": {
+      "customer": "عميل",
+      "doctor": "طبيب",
+      "storeManager": "مدير متجر",
+      "admin": "مدير النظام"
+    },
+    "loginFailed": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "haveAccount": "لديك حساب بالفعل؟",
+    "noAccount": "ليس لديك حساب؟",
+    "goToLogin": "تسجيل الدخول",
+    "goToRegister": "إنشاء حساب"
+  },
+  "hero": {
+    "titleBold": "مرحبا بك في MediMart",
+    "titleAccent": "منصة صيدلية رقمية",
+    "subtitle": "إدارة الأدوية والمبيعات والعملاء بسهولة",
+    "cta": "ابدأ الآن"
+  },
+  "dashboard": {
+    "welcome": "مرحباً بك في MediMart",
+    "loggedAs": "مسجل كـ",
+    "logout": "تسجيل الخروج",
+    "cards": {
+      "inventory": "إدارة الأدوية",
+      "sales": "المبيعات",
+      "customers": "العملاء",
+      "prescriptions": "الوصفات الطبية",
+      "reports": "التقارير",
+      "settings": "الإعدادات"
+    }
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "صيغة البريد غير صحيحة",
+    "passwordsMismatch": "كلمات المرور غير متطابقة"
+  },
+  "lang": {
+    "arabic": "العربية",
+    "english": "English"
+  }
 }
-
 
